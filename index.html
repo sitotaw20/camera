@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Lens — Camera App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+    <header class="topbar">
+        <div class="topbar-title"><span>Lens</span> Camera</div>
+        <div class="topbar-actions">
+            <button class="topbar-btn" id="mirrorBtn" title="Mirror" aria-label="Toggle mirror">
+                <i class="fas fa-arrows-left-right"></i>
+            </button>
+            <button class="topbar-btn" id="timerBtn" title="Timer" aria-label="Toggle timer">
+                <i class="fas fa-clock"></i>
+            </button>
+            <button class="topbar-btn" id="fullscreenBtn" title="Fullscreen" aria-label="Toggle fullscreen">
+                <i class="fas fa-expand"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="viewport" id="viewport">
+        <div class="permission-screen" id="permScreen">
+            <div class="permission-icon"><i class="fas fa-camera"></i></div>
+            <h2>Camera Access Required</h2>
+            <p>Grant camera permission to capture photos and record videos with filters.</p>
+            <button class="permission-btn" id="permBtn">Enable Camera</button>
+        </div>
+
+        <video id="video" autoplay playsinline muted></video>
+        <div class="shutter-flash" id="shutterFlash"></div>
+
+        <div class="rec-indicator" id="recIndicator">
+            <div class="rec-dot"></div>
+            <span class="rec-timer" id="recTimer">00:00</span>
+        </div>
+
+        <div class="zoom-indicator" id="zoomIndicator">1.0x</div>
+    </main>
+
+    <nav class="controls" id="controls">
+        <div class="filter-strip" id="filterStrip">
+            <button class="filter-chip active" data-filter="filter-none">Normal</button>
+            <button class="filter-chip" data-filter="filter-warm">Warm</button>
+            <button class="filter-chip" data-filter="filter-cool">Cool</button>
+            <button class="filter-chip" data-filter="filter-vintage">Vintage</button>
+            <button class="filter-chip" data-filter="filter-sepia">Sepia</button>
+            <button class="filter-chip" data-filter="filter-noir">Noir</button>
+            <button class="filter-chip" data-filter="filter-grayscale">Grayscale</button>
+            <button class="filter-chip" data-filter="filter-contrast">Contrast</button>
+        </div>
+
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="photo">Photo</button>
+            <button class="mode-btn" data-mode="video">Video</button>
+            <button class="mode-btn" data-mode="burst">Burst</button>
+        </div>
+
+        <div class="action-row">
+            <div class="thumbnail-wrap" id="thumbWrap" aria-label="Open gallery" tabindex="0">
+                <div class="placeholder"><i class="fas fa-images"></i></div>
+            </div>
+            <button class="shutter-btn" id="shutterBtn" aria-label="Capture"></button>
+            <button class="flip-btn" id="flipBtn" aria-label="Switch camera">
+                <i class="fas fa-camera-rotate"></i>
+            </button>
+        </div>
+    </nav>
+</div>
+
+<div class="gallery-overlay" id="galleryOverlay" role="dialog" aria-label="Gallery">
+    <div class="gallery-header">
+        <h2>Gallery</h2>
+        <button class="gallery-close" id="galleryClose" aria-label="Close gallery"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="gallery-body" id="galleryBody">
+        <div class="gallery-empty" id="galleryEmpty">
+            <i class="fas fa-camera-retro"></i>
+            <p>No captures yet. Start shooting!</p>
+        </div>
+        <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+</div>
+
+<div class="preview-overlay" id="previewOverlay" role="dialog" aria-label="Preview">
+    <button class="preview-close" id="previewClose" aria-label="Close preview"><i class="fas fa-xmark"></i></button>
+    <div id="previewContent"></div>
+    <div class="preview-actions">
+        <button class="preview-btn primary" id="previewDownload"><i class="fas fa-download"></i> Save</button>
+        <button class="preview-btn danger" id="previewDelete"><i class="fas fa-trash"></i> Delete</button>
+        <button class="preview-btn" id="previewBack"><i class="fas fa-arrow-left"></i> Back</button>
+    </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<canvas class="hidden-canvas" id="captureCanvas"></canvas>
+
+<script src="script.js"></script>
+</body>
+</html>
